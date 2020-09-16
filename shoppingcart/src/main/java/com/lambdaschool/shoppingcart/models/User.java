@@ -1,6 +1,9 @@
 package com.lambdaschool.shoppingcart.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,7 +28,11 @@ public class User
     @Column(nullable = false,
             unique = true)
     private String username;
+
+    @Column(nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
     private String comments;
 
     @OneToMany(mappedBy = "user",
@@ -33,6 +40,8 @@ public class User
     @JsonIgnoreProperties(value = "user",
             allowSetters = true)
     private List<Cart> carts = new ArrayList<>();
+
+
 
     public User()
     {
@@ -42,6 +51,16 @@ public class User
     public long getUserid()
     {
         return userid;
+    }
+
+    public User(
+        String username,
+        String password,
+        String comments)
+    {
+        setUsername(username);
+        setPassword(password);
+        this.comments = comments;
     }
 
     public void setUserid(long userid)
@@ -66,6 +85,12 @@ public class User
 
     public void setPassword(String password)
     {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
+    }
+
+    public void SetNoEncodePassword(String password)
+    {
         this.password = password;
     }
 
@@ -87,5 +112,17 @@ public class User
     public void setCarts(List<Cart> carts)
     {
         this.carts = carts;
+    }
+
+    public List<SimpleGrantedAuthority> getAuthority()
+    {
+        List<SimpleGrantedAuthority> rtnList = new ArrayList<>();
+
+        for (UserRoles r : this.roles)
+        {
+            String myRole = "Role " + r.getRole().getName().toUpperCase();
+            rtnList.add(new SimpleGrantedAuthority(myRole));
+        }
+        return rtnList;
     }
 }
