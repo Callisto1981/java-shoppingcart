@@ -42,6 +42,10 @@ public class User
     private List<Cart> carts = new ArrayList<>();
 
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = "user", allowSetters = true)
+    private List<UserRoles> roles = new ArrayList<>();
+
 
     public User()
     {
@@ -120,7 +124,7 @@ public class User
 
         for (UserRoles r : this.roles)
         {
-            String myRole = "Role " + r.getRole().getName().toUpperCase();
+            String myRole = "Role " + r.getRoles().getRolename().toUpperCase();
             rtnList.add(new SimpleGrantedAuthority(myRole));
         }
         return rtnList;

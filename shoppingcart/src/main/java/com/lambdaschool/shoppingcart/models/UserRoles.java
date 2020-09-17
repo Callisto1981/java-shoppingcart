@@ -55,5 +55,5 @@ public class UserRoles extends Auditable implements Serializable
         this.roles = roles;
     }
 
-    
+
 }
