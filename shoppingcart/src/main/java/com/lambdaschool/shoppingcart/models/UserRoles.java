@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "userroles")
+@Table(name = "userroles", uniqueConstraints = {@UniqueConstraint(columnNames = {"userid", "roleid"})})
 public class UserRoles extends Auditable implements Serializable
 {
     @Id
@@ -55,5 +55,25 @@ public class UserRoles extends Auditable implements Serializable
         this.roles = roles;
     }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+        if (!(obj instanceof UserRoles))
+        {
+            return false;
+        }
+        UserRoles that = (UserRoles) obj;
+        return ((user == null) ? 0 : user.getUserid()) == ((that.user == null) ? 0 : that.user.getUserid()) &&
+            ((roles == null) ? 0 : roles.getRoleid()) == ((that.roles == null) ? 0 : that.roles.getRoleid());
+    }
 
+    @Override
+    public int hashCode()
+    {
+        return 37;
+    }
 }

@@ -12,10 +12,9 @@ public class Roles extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private long roleid;
-    @Column(nullable = false,
-    unique = true)
+
+    @Column(nullable = false, unique = true)
     private String rolename;
 
 
@@ -27,8 +26,9 @@ public class Roles extends Auditable
     {
     }
 
-    public Roles(String rolename)
+    public Roles(long roleid, String rolename)
     {
+        this.roleid = roleid;
         this.rolename = rolename;
     }
 
@@ -44,18 +44,12 @@ public class Roles extends Auditable
 
     public String getRolename()
     {
-        if (rolename == null)
-        {
-            return null;
-        }
-        else {
-            return rolename.toUpperCase(); //setting rolename to uppercase
-        }
+        return rolename;
     }
 
     public void setRolename(String rolename)
     {
-        this.rolename = rolename.toUpperCase();
+        this.rolename = rolename;
     }
 
     public List<UserRoles> getUsers()

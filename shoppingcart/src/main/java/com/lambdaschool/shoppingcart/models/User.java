@@ -52,12 +52,9 @@ public class User
 
     }
 
-    public long getUserid()
-    {
-        return userid;
-    }
 
     public User(
+        long userid,
         String username,
         String password,
         String comments)
@@ -65,6 +62,11 @@ public class User
         setUsername(username);
         setPassword(password);
         this.comments = comments;
+    }
+
+    public long getUserid()
+    {
+        return userid;
     }
 
     public void setUserid(long userid)
@@ -106,6 +108,16 @@ public class User
     public void setComments(String comments)
     {
         this.comments = comments;
+    }
+
+    public List<UserRoles> getRoles()
+    {
+        return roles;
+    }
+
+    public void setRoles(List<UserRoles> roles)
+    {
+        this.roles = roles;
     }
 
     public List<Cart> getCarts()

@@ -1,5 +1,6 @@
 package com.lambdaschool.shoppingcart.repositories;
 
+import com.lambdaschool.shoppingcart.models.Auditable;
 import com.lambdaschool.shoppingcart.models.Cart;
 import com.lambdaschool.shoppingcart.views.JustTheCount;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,8 +13,8 @@ import java.util.List;
 /**
  * The CRUD repository connecting Cart to the rest of the application
  */
-public interface CartRepository
-        extends CrudRepository<Cart, Long>
+public interface CartRepository<R extends Auditable, L extends Number>
+    extends CrudRepository<Cart, Long>
 {
     List<Cart> findAllByUser_Userid(long id);
 

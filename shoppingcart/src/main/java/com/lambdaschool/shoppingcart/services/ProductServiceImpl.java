@@ -2,6 +2,7 @@ package com.lambdaschool.shoppingcart.services;
 
 import com.lambdaschool.shoppingcart.exceptions.ResourceFoundException;
 import com.lambdaschool.shoppingcart.exceptions.ResourceNotFoundException;
+import com.lambdaschool.shoppingcart.models.Auditable;
 import com.lambdaschool.shoppingcart.models.Product;
 import com.lambdaschool.shoppingcart.repositories.CartRepository;
 import com.lambdaschool.shoppingcart.repositories.ProductRepository;
@@ -23,7 +24,7 @@ public class ProductServiceImpl
     private ProductRepository productrepos;
 
     @Autowired
-    private CartRepository cartrepos;
+    private CartRepository<Auditable, Number> cartrepos;
 
     /**
      * Connects this service to the auditing service in order to find the current user

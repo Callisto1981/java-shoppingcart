@@ -1,10 +1,7 @@
 package com.lambdaschool.shoppingcart.services;
 
 import com.lambdaschool.shoppingcart.exceptions.ResourceNotFoundException;
-import com.lambdaschool.shoppingcart.models.Cart;
-import com.lambdaschool.shoppingcart.models.CartItem;
-import com.lambdaschool.shoppingcart.models.Product;
-import com.lambdaschool.shoppingcart.models.User;
+import com.lambdaschool.shoppingcart.models.*;
 import com.lambdaschool.shoppingcart.repositories.CartRepository;
 import com.lambdaschool.shoppingcart.repositories.ProductRepository;
 import com.lambdaschool.shoppingcart.repositories.UserRepository;
@@ -23,7 +20,7 @@ public class CartServiceImpl
      * Connects this service to the cart repository
      */
     @Autowired
-    private CartRepository cartrepos;
+    private CartRepository<Auditable, Number> cartrepos;
 
     /**
      * Connects this service the user repository
